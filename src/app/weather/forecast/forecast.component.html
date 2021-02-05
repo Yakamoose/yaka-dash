@@ -1,1 +1,10 @@
-<h2>The weather outside is currently: {{ temp }} deg F</h2>
+<div class="">
+    <ng-container *ngIf="allowLocation">
+        <p>The weather outside is currently: {{ temp }} deg F</p>
+    </ng-container>
+    
+    <ng-container *ngIf="!allowLocation">
+        <p>Allow use of location to see weather</p>
+    </ng-container>
+</div>
+

@@ -12,10 +12,14 @@ export class ForecastComponent implements OnInit {
 
   constructor(private forecastService: ForecastService) {
     forecastService.getWeather()
-      .subscribe((res) => {
-        this.temp = Math.floor(res.main.temp);
-        console.log(res.main.temp);
-      });
+      .subscribe(
+          (res) => {
+            this.allowLocation = true;
+            this.temp = Math.floor(res.main.temp);
+          },
+          (err) => {
+            this.allowLocation = false;
+          });
    }
 
   ngOnInit(): void {
