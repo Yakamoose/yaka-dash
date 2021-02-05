@@ -1,0 +1,68 @@
+$bg: black;
+$rc: rgb(236, 140, 140);
+$dc: rgb(127, 214, 188);
+
+$n-dots: 12;
+$d-ring: 300px;
+$d-dots: $d-ring / 10;
+$r-thickness: $d-dots * 0.5;
+
+$ba: 360deg/ $n-dots;
+$trans-dist: 1.5 * $d-dots;
+$box-shadow: 0 0 0 .6*$r-thickness $bg;
+
+.container {
+    background-color: $bg;
+    height: $d-ring * 1.5;
+    width: $d-ring * 1.5;
+
+    div, :after {
+        border-radius: 50%;
+        position: absolute;
+        transform-style: preserve-3d;
+        // background: -webkit-linear-gradient(left top, crimson 0%, #f90 100%);
+    }
+
+    .ring {
+        left: 50%;
+        top: 50%;
+        
+        &:after {
+            content: '';
+            margin: -0.5 * $d-ring;
+            width: $d-ring;
+            height: $d-ring;
+            border: $r-thickness solid $rc;
+            // box-shadow: $box-shadow;
+        }
+    }
+
+    .dot {
+        @for $i from 1 to $n-dots + 1 {
+            &:nth-child(#{$i}) {
+                transform: rotate($i * $ba) translate($d-ring * .37);
+                &:after {
+                    animation-delay: -$i * 2s/$n-dots;
+                }
+            }
+        }
+        &:after {
+            content: '';
+            width: $d-dots;
+            height: $d-dots;
+            margin: 0.5 * $d-dots;
+            background-color: $dc;
+            animation: play 2s linear infinite;
+            // border: 3px solid $bg;
+        }
+    }
+}
+
+@keyframes play {
+    0% {
+        transform: rotateY(0deg) translate($trans-dist) rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg) translate($trans-dist) rotateY(-360deg);
+    }
+}
